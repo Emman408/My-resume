@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SignalDeck NOC | Network Monitoring Dashboard UI</title>
+  <meta name="description" content="A network operations center dashboard concept for monitoring uptime, topology, firewall alerts, identity sync, endpoint compliance, and bandwidth health." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <main class="console-shell">
+    <header class="command-header">
+      <a class="brand" href="#overview" aria-label="SignalDeck home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44"><path d="M22 4 38 13v18L22 40 6 31V13L22 4Z"/><path d="M22 11v22M13 17l18 10M31 17 13 27"/></svg>
+        </span>
+        <span>
+          <strong>SignalDeck NOC</strong>
+          <small>Network Operations Console</small>
+        </span>
+      </a>
+
+      <div class="command-search" role="search">
+        <span>⌘</span>
+        <input id="assetSearch" type="search" placeholder="Filter assets, alerts, subnets, services..." />
+      </div>
+
+      <div class="header-state" aria-label="Current monitoring state">
+        <span class="pulse-dot"></span>
+        <span>Live telemetry</span>
+        <time datetime="2026-06-02T13:42">13:42 ADT</time>
+      </div>
+
+      <a href="../../" class="back-link">← Portfolio</a>
+    </header>
+
+    <section id="overview" class="signal-strip" aria-label="Network summary metrics">
+      <article class="signal-chip">
+        <span>Uptime</span>
+        <strong>99.982%</strong>
+        <small>18 days clean</small>
+      </article>
+      <article class="signal-chip">
+        <span>Core latency</span>
+        <strong>18ms</strong>
+        <small>+2ms from baseline</small>
+      </article>
+      <article class="signal-chip warning">
+        <span>Firewall noise</span>
+        <strong>16</strong>
+        <small>4 high priority</small>
+      </article>
+      <article class="signal-chip">
+        <span>AD Connect</span>
+        <strong>2m</strong>
+        <small>Last successful sync</small>
+      </article>
+      <article class="signal-chip alert">
+        <span>Patch gaps</span>
+        <strong>14</strong>
+        <small>Endpoints behind</small>
+      </article>
+    </section>
+
+    <section class="operations-grid">
+      <article class="board topology-board" aria-labelledby="topologyTitle">
+        <div class="board-heading">
+          <div>
+            <p class="eyebrow">Topology matrix</p>
+            <h1 id="topologyTitle">Live network route map</h1>
+          </div>
+          <button id="traceBtn" class="action-btn" type="button">Run trace</button>
+        </div>
+
+        <div class="topology-canvas" role="img" aria-label="Live topology showing internet links, edge firewall, core switch, servers, identity services, and endpoints">
+          <svg class="topology-svg" viewBox="0 0 900 530" aria-hidden="true">
+            <defs>
+              <filter id="softGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path class="trace trace-a" d="M105 126 C226 100 273 186 367 191"/>
+            <path class="trace trace-b" d="M367 191 C473 193 498 109 608 114"/>
+            <path class="trace trace-c" d="M367 191 C471 205 517 262 622 262"/>
+            <path class="trace trace-d" d="M367 191 C481 238 498 377 619 393"/>
+            <path class="trace trace-e" d="M608 114 C704 124 730 185 798 222"/>
+            <path class="trace trace-f" d="M622 262 C716 261 746 250 812 304"/>
+          </svg>
+
+          <button class="net-node internet" data-node="Internet Edge" style="--x:8%;--y:15%">
+            <span>☁</span><b>ISP</b><small>Dual link</small>
+          </button>
+          <button class="net-node firewall danger" data-node="FW-EDGE-01" style="--x:34%;--y:31%">
+            <span>⛨</span><b>FW-EDGE-01</b><small>4 high alerts</small>
+          </button>
+          <button class="net-node switch" data-node="SW-CORE-01" style="--x:61%;--y:13%">
+            <span>▧</span><b>SW-CORE-01</b><small>Healthy</small>
+          </button>
+          <button class="net-node server warning" data-node="SRV-APP-04" style="--x:62%;--y:42%">
+            <span>▣</span><b>SRV-APP-04</b><small>CPU 86%</small>
+          </button>
+          <button class="net-node backup" data-node="SRV-BACKUP-01" style="--x:61%;--y:68%">
+            <span>▥</span><b>SRV-BACKUP</b><small>Job failed</small>
+          </button>
+          <button class="net-node identity" data-node="AD Connect" style="--x:81%;--y:35%">
+            <span>◎</span><b>AD Connect</b><small>Synced</small>
+          </button>
+          <button class="net-node endpoint" data-node="Endpoint Fleet" style="--x:83%;--y:57%">
+            <span>◫</span><b>Endpoints</b><small>94.6%</small>
+          </button>
+        </div>
+      </article>
+
+      <aside class="board inspector" aria-labelledby="inspectorTitle">
+        <div class="board-heading compact">
+          <div>
+            <p class="eyebrow">Inspector</p>
+            <h2 id="inspectorTitle">Selected asset</h2>
+          </div>
+          <span class="severity-pill high">High</span>
+        </div>
+        <div class="asset-identity">
+          <span class="asset-glyph">⛨</span>
+          <div>
+            <strong id="selectedNode">FW-EDGE-01</strong>
+            <small>Edge firewall, WAN perimeter</small>
+          </div>
+        </div>
+        <dl class="inspector-list">
+          <div><dt>Packet drops</dt><dd>1,842</dd></div>
+          <div><dt>Blocked sources</dt><dd>27</dd></div>
+          <div><dt>Policy hits</dt><dd>8.4k</dd></div>
+          <div><dt>Owner</dt><dd>Network Ops</dd></div>
+        </dl>
+        <div class="mini-radar" aria-label="Signal confidence radar">
+          <span style="--p:74%"><b>Signal</b></span>
+          <span style="--p:86%"><b>Policy</b></span>
+          <span style="--p:62%"><b>Risk</b></span>
+        </div>
+      </aside>
+
+      <article class="board traffic-board" aria-labelledby="trafficTitle">
+        <div class="board-heading compact">
+          <div>
+            <p class="eyebrow">WAN telemetry</p>
+            <h2 id="trafficTitle">Bandwidth waveform</h2>
+          </div>
+          <span class="severity-pill normal">68% peak</span>
+        </div>
+        <div class="wave-chart" aria-label="Bandwidth waveform by hour">
+          <i style="--h:38%"><span>08</span></i>
+          <i style="--h:52%"><span>09</span></i>
+          <i style="--h:63%"><span>10</span></i>
+          <i style="--h:47%"><span>11</span></i>
+          <i style="--h:73%"><span>12</span></i>
+          <i style="--h:88%"><span>13</span></i>
+          <i style="--h:68%"><span>14</span></i>
+          <i style="--h:54%"><span>15</span></i>
+        </div>
+        <div class="traffic-metrics">
+          <div><span>Inbound</span><strong>612 Mbps</strong></div>
+          <div><span>Outbound</span><strong>284 Mbps</strong></div>
+          <div><span>Top subnet</span><strong>10.10.40.0/24</strong></div>
+        </div>
+      </article>
+
+      <article class="board endpoint-board" aria-labelledby="endpointTitle">
+        <div class="board-heading compact">
+          <div>
+            <p class="eyebrow">Endpoint compliance</p>
+            <h2 id="endpointTitle">Patch grid</h2>
+          </div>
+          <span class="severity-pill normal">94.6%</span>
+        </div>
+        <div class="patch-grid" aria-label="Endpoint compliance grid">
+          <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="bad"></span><span class="ok"></span>
+          <span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span>
+          <span class="ok"></span><span class="bad"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+        </div>
+        <p class="board-note">Amber devices need patch validation. Red devices are unmanaged or missing endpoint protection.</p>
+      </article>
+
+      <article class="board alert-board" aria-labelledby="alertsTitle">
+        <div class="board-heading compact">
+          <div>
+            <p class="eyebrow">Firewall activity</p>
+            <h2 id="alertsTitle">Incident queue</h2>
+          </div>
+          <div class="segmented" aria-label="Alert filter">
+            <button class="active" data-filter="all" type="button">All</button>
+            <button data-filter="high" type="button">High</button>
+            <button data-filter="medium" type="button">Medium</button>
+          </div>
+        </div>
+        <div class="incident-list" id="incidentList">
+          <div class="incident-row" data-severity="high" data-search="brute force vpn pool wan high alert firewall">
+            <span class="event-marker high"></span>
+            <div><strong>Repeated VPN login attempts</strong><small>Source: 198.51.100.24 • WAN-02</small></div>
+            <b>High</b>
+          </div>
+          <div class="incident-row" data-severity="medium" data-search="dns spike endpoint group medium alert firewall">
+            <span class="event-marker medium"></span>
+            <div><strong>DNS request spike detected</strong><small>Subnet: 10.10.40.0/24</small></div>
+            <b>Medium</b>
+          </div>
+          <div class="incident-row" data-severity="high" data-search="backup server failed job high alert server">
+            <span class="event-marker high"></span>
+            <div><strong>Backup job failed twice</strong><small>Asset: SRV-BACKUP-01</small></div>
+            <b>High</b>
+          </div>
+          <div class="incident-row" data-severity="medium" data-search="endpoint unmanaged missing defender medium compliance">
+            <span class="event-marker medium"></span>
+            <div><strong>Unmanaged endpoint joined subnet</strong><small>Device: NBCC-WIN11-077</small></div>
+            <b>Medium</b>
+          </div>
+        </div>
+      </article>
+
+      <article class="board identity-board" aria-labelledby="identityTitle">
+        <div class="board-heading compact">
+          <div>
+            <p class="eyebrow">Identity sync</p>
+            <h2 id="identityTitle">Directory health</h2>
+          </div>
+          <span class="severity-pill normal">Synced</span>
+        </div>
+        <div class="sync-ring" aria-label="Active Directory sync status">
+          <svg viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="70"></circle>
+            <circle class="progress" cx="90" cy="90" r="70"></circle>
+          </svg>
+          <div><strong>98%</strong><span>Sync confidence</span></div>
+        </div>
+        <ul class="sync-list">
+          <li><span></span> Last sync completed 2 minutes ago</li>
+          <li><span></span> 0 password hash errors</li>
+          <li><span></span> 3 stale service accounts flagged</li>
+        </ul>
+      </article>
+
+      <article class="board timeline-board" aria-labelledby="timelineTitle">
+        <div class="board-heading compact">
+          <div>
+            <p class="eyebrow">Operations timeline</p>
+            <h2 id="timelineTitle">Next response actions</h2>
+          </div>
+          <button class="action-btn secondary" type="button">Create handoff</button>
+        </div>
+        <ol class="timeline">
+          <li><time>13:05</time><div><strong>Investigate VPN login pattern</strong><span>Correlate blocked sources against known geo patterns and recent account lockouts.</span></div></li>
+          <li><time>13:20</time><div><strong>Validate backup failure</strong><span>Confirm storage availability, service state, and previous successful restore point.</span></div></li>
+          <li><time>13:45</time><div><strong>Patch exception review</strong><span>Move unmanaged devices into remediation group and document owner follow-up.</span></div></li>
+        </ol>
+      </article>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite">Trace scan complete. FW-EDGE-01 still needs review.</div>
+  <script src="app.js"></script>
+</body>
+</html>
