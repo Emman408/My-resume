@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpsDesk Pulse | IT Support Dashboard UI</title>
+  <meta name="description" content="A modern helpdesk dashboard concept for IT support teams, designed by Emmanuel Ajilore." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">EA</div>
+        <div>
+          <p class="eyebrow">OpsDesk</p>
+          <h1>Pulse</h1>
+        </div>
+      </div>
+
+      <nav class="nav-list">
+        <a class="nav-item active" href="#overview" aria-current="page">
+          <span class="nav-icon" aria-hidden="true">▣</span>
+          Overview
+        </a>
+        <a class="nav-item" href="#tickets">
+          <span class="nav-icon" aria-hidden="true">◴</span>
+          Tickets
+        </a>
+        <a class="nav-item" href="#devices">
+          <span class="nav-icon" aria-hidden="true">◫</span>
+          Devices
+        </a>
+        <a class="nav-item" href="#incidents">
+          <span class="nav-icon" aria-hidden="true">◇</span>
+          Incidents
+        </a>
+        <a class="nav-item" href="#knowledge">
+          <span class="nav-icon" aria-hidden="true">⌕</span>
+          Knowledge Base
+        </a>
+      </nav>
+
+      <div class="sidebar-card">
+        <p class="eyebrow">Today's focus</p>
+        <h2>Keep SLA breaches under 3%</h2>
+        <p>High-priority tickets need first response before 11:30 AM.</p>
+      </div>
+
+      <a href="../../" class="back-link">← Back to portfolio</a>
+    </aside>
+
+    <main class="dashboard">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Technical Support Dashboard UI</p>
+          <h2>Good morning, Emmanuel</h2>
+          <p class="muted">Track open tickets, SLA health, device status, and recurring incidents in one clean workspace.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <label class="global-search">
+            <span class="sr-only">Search tickets and knowledge base</span>
+            <input id="globalSearch" type="search" placeholder="Search ticket, device, KB..." />
+          </label>
+          <button class="btn secondary" type="button">Export report</button>
+          <button class="btn primary" type="button">New ticket</button>
+        </div>
+      </header>
+
+      <section id="overview" class="metric-grid" aria-label="Support performance metrics">
+        <article class="metric-card glow-blue">
+          <div class="metric-top">
+            <span>Open tickets</span>
+            <span class="trend up">+8%</span>
+          </div>
+          <strong>128</strong>
+          <p>42 awaiting user response</p>
+        </article>
+
+        <article class="metric-card glow-green">
+          <div class="metric-top">
+            <span>SLA on track</span>
+            <span class="trend stable">96.7%</span>
+          </div>
+          <strong>91</strong>
+          <p>4 tickets at risk today</p>
+        </article>
+
+        <article class="metric-card glow-gold">
+          <div class="metric-top">
+            <span>Avg. first response</span>
+            <span class="trend down">-12m</span>
+          </div>
+          <strong>18m</strong>
+          <p>Target response is 30m</p>
+        </article>
+
+        <article class="metric-card glow-red">
+          <div class="metric-top">
+            <span>Major incidents</span>
+            <span class="trend warning">2 active</span>
+          </div>
+          <strong>07</strong>
+          <p>5 resolved this week</p>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel sla-panel" aria-labelledby="sla-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">SLA status</p>
+              <h3 id="sla-title">Response health</h3>
+            </div>
+            <span class="pill success">Healthy</span>
+          </div>
+
+          <div class="sla-layout">
+            <div class="gauge" role="img" aria-label="SLA health at 96.7 percent">
+              <svg viewBox="0 0 220 220" aria-hidden="true">
+                <circle class="gauge-bg" cx="110" cy="110" r="82"></circle>
+                <circle class="gauge-progress" cx="110" cy="110" r="82"></circle>
+              </svg>
+              <div class="gauge-center">
+                <strong>96.7%</strong>
+                <span>on track</span>
+              </div>
+            </div>
+
+            <div class="sla-breakdown">
+              <div class="breakdown-row">
+                <span>Critical</span>
+                <div class="bar"><i style="width: 88%"></i></div>
+                <strong>88%</strong>
+              </div>
+              <div class="breakdown-row">
+                <span>High</span>
+                <div class="bar"><i style="width: 93%"></i></div>
+                <strong>93%</strong>
+              </div>
+              <div class="breakdown-row">
+                <span>Medium</span>
+                <div class="bar"><i style="width: 97%"></i></div>
+                <strong>97%</strong>
+              </div>
+              <div class="breakdown-row">
+                <span>Low</span>
+                <div class="bar"><i style="width: 99%"></i></div>
+                <strong>99%</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel priority-panel" aria-labelledby="priority-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Priority levels</p>
+              <h3 id="priority-title">Ticket load</h3>
+            </div>
+            <button class="link-button" type="button">View queue</button>
+          </div>
+
+          <div class="priority-chart" aria-label="Ticket priority distribution">
+            <div class="priority-row critical">
+              <span>P1</span>
+              <div><i style="height: 46%"></i></div>
+              <strong>12</strong>
+            </div>
+            <div class="priority-row high">
+              <span>P2</span>
+              <div><i style="height: 72%"></i></div>
+              <strong>32</strong>
+            </div>
+            <div class="priority-row medium">
+              <span>P3</span>
+              <div><i style="height: 88%"></i></div>
+              <strong>54</strong>
+            </div>
+            <div class="priority-row low">
+              <span>P4</span>
+              <div><i style="height: 58%"></i></div>
+              <strong>30</strong>
+            </div>
+          </div>
+        </article>
+
+        <article id="tickets" class="panel tickets-panel" aria-labelledby="tickets-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Open tickets</p>
+              <h3 id="tickets-title">Needs attention</h3>
+            </div>
+            <span class="pill warning">4 at risk</span>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ticket</th>
+                  <th>User</th>
+                  <th>Priority</th>
+                  <th>SLA</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="ticketRows">
+                <tr>
+                  <td><strong>#HD-2418</strong><span>VPN fails after password reset</span></td>
+                  <td>Maya Bennett</td>
+                  <td><span class="tag critical">P1</span></td>
+                  <td><span class="time danger">12m left</span></td>
+                  <td>Escalated</td>
+                </tr>
+                <tr>
+                  <td><strong>#HD-2415</strong><span>Teams audio device not detected</span></td>
+                  <td>Daniel Kim</td>
+                  <td><span class="tag high">P2</span></td>
+                  <td><span class="time caution">41m left</span></td>
+                  <td>In progress</td>
+                </tr>
+                <tr>
+                  <td><strong>#HD-2409</strong><span>New laptop onboarding request</span></td>
+                  <td>Rina Patel</td>
+                  <td><span class="tag medium">P3</span></td>
+                  <td><span class="time safe">2h 10m</span></td>
+                  <td>Waiting asset</td>
+                </tr>
+                <tr>
+                  <td><strong>#HD-2397</strong><span>SharePoint permission error</span></td>
+                  <td>Chris Morgan</td>
+                  <td><span class="tag medium">P3</span></td>
+                  <td><span class="time safe">3h 02m</span></td>
+                  <td>Pending user</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <aside class="side-stack">
+          <article id="devices" class="panel device-panel" aria-labelledby="devices-title">
+            <div class="panel-heading compact">
+              <div>
+                <p class="eyebrow">User device status</p>
+                <h3 id="devices-title">Fleet snapshot</h3>
+              </div>
+            </div>
+
+            <div class="device-list">
+              <div class="device-item">
+                <span class="device-dot healthy"></span>
+                <div><strong>Compliant</strong><p>482 devices</p></div>
+                <em>87%</em>
+              </div>
+              <div class="device-item">
+                <span class="device-dot warning"></span>
+                <div><strong>Update pending</strong><p>51 devices</p></div>
+                <em>9%</em>
+              </div>
+              <div class="device-item">
+                <span class="device-dot danger"></span>
+                <div><strong>Attention needed</strong><p>22 devices</p></div>
+                <em>4%</em>
+              </div>
+            </div>
+          </article>
+
+          <article id="knowledge" class="panel kb-panel" aria-labelledby="kb-title">
+            <div class="panel-heading compact">
+              <div>
+                <p class="eyebrow">Knowledge base</p>
+                <h3 id="kb-title">Quick answers</h3>
+              </div>
+            </div>
+
+            <label class="kb-search">
+              <span class="sr-only">Search knowledge base</span>
+              <input id="kbSearch" type="search" placeholder="Search articles..." />
+            </label>
+
+            <div id="kbList" class="kb-list">
+              <button type="button" data-title="Reset VPN profile on Windows">Reset VPN profile on Windows</button>
+              <button type="button" data-title="Fix Teams audio input issues">Fix Teams audio input issues</button>
+              <button type="button" data-title="Onboard new employee device">Onboard new employee device</button>
+              <button type="button" data-title="SharePoint access troubleshooting">SharePoint access troubleshooting</button>
+            </div>
+          </article>
+        </aside>
+
+        <article id="incidents" class="panel incidents-panel" aria-labelledby="incidents-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Recent incidents</p>
+              <h3 id="incidents-title">Operational timeline</h3>
+            </div>
+            <button class="link-button" type="button">Open incident board</button>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-item active">
+              <span></span>
+              <div>
+                <strong>VPN authentication latency</strong>
+                <p>Monitoring increased login failures after Entra ID policy update.</p>
+                <small>09:42 AM · Active</small>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span></span>
+              <div>
+                <strong>Printer queue service restored</strong>
+                <p>Restarted print spooler and cleared stale jobs on Floor 3 devices.</p>
+                <small>08:15 AM · Resolved</small>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span></span>
+              <div>
+                <strong>Phishing report triaged</strong>
+                <p>Message isolated, headers reviewed, and user notified with safety steps.</p>
+                <small>Yesterday · Closed</small>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
